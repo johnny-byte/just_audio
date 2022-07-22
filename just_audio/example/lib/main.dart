@@ -45,7 +45,8 @@ class MyAppState extends State<MyApp> with WidgetsBindingObserver {
     try {
       // AAC example: https://dl.espressif.com/dl/audio/ff-16b-2c-44100hz.aac
       await _player.setAudioSource(AudioSource.uri(Uri.parse(
-          "https://s3.amazonaws.com/scifri-episodes/scifri20181123-episode.mp3")));
+          "https://dl.espressif.com/dl/audio/ff-16b-2c-44100hz.aac")));
+      // await _player.setAsset("audio/test.mp3");
     } catch (e) {
       print("Error loading audio source: $e");
     }
@@ -98,6 +99,9 @@ class MyAppState extends State<MyApp> with WidgetsBindingObserver {
                 stream: _positionDataStream,
                 builder: (context, snapshot) {
                   final positionData = snapshot.data;
+                  print("---------------------------------");
+                  print("duration: ${positionData?.duration ?? Duration.zero}");
+                  print("position: ${positionData?.position ?? Duration.zero}");
                   return SeekBar(
                     duration: positionData?.duration ?? Duration.zero,
                     position: positionData?.position ?? Duration.zero,
